@@ -3,7 +3,6 @@ package product;
 
 option java_package = "dev.techdozo.product.api";
 
-
 message ProductApiRequest {
   string sku = 1;
 
@@ -13,7 +12,6 @@ message ProductApiResponse {
   string name = 1;
   string description = 2;
   double price = 3;
-  string soldBy = 4;
 }
 
 service ProductApiService {

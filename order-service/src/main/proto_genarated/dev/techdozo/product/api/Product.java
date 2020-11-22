@@ -615,18 +615,6 @@ public final class Product {
      * @return The price.
      */
     double getPrice();
-
-    /**
-     * <code>string soldBy = 4;</code>
-     * @return The soldBy.
-     */
-    java.lang.String getSoldBy();
-    /**
-     * <code>string soldBy = 4;</code>
-     * @return The bytes for soldBy.
-     */
-    com.google.protobuf.ByteString
-        getSoldByBytes();
   }
   /**
    * Protobuf type {@code product.ProductApiResponse}
@@ -643,7 +631,6 @@ public final class Product {
     private ProductApiResponse() {
       name_ = "";
       description_ = "";
-      soldBy_ = "";
     }
 
     @java.lang.Override
@@ -691,12 +678,6 @@ public final class Product {
             case 25: {
 
               price_ = input.readDouble();
-              break;
-            }
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              soldBy_ = s;
               break;
             }
             default: {
@@ -818,44 +799,6 @@ public final class Product {
       return price_;
     }
 
-    public static final int SOLDBY_FIELD_NUMBER = 4;
-    private volatile java.lang.Object soldBy_;
-    /**
-     * <code>string soldBy = 4;</code>
-     * @return The soldBy.
-     */
-    @java.lang.Override
-    public java.lang.String getSoldBy() {
-      java.lang.Object ref = soldBy_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        soldBy_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string soldBy = 4;</code>
-     * @return The bytes for soldBy.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getSoldByBytes() {
-      java.lang.Object ref = soldBy_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        soldBy_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -879,9 +822,6 @@ public final class Product {
       if (price_ != 0D) {
         output.writeDouble(3, price_);
       }
-      if (!getSoldByBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, soldBy_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -900,9 +840,6 @@ public final class Product {
       if (price_ != 0D) {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(3, price_);
-      }
-      if (!getSoldByBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, soldBy_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -926,8 +863,6 @@ public final class Product {
       if (java.lang.Double.doubleToLongBits(getPrice())
           != java.lang.Double.doubleToLongBits(
               other.getPrice())) return false;
-      if (!getSoldBy()
-          .equals(other.getSoldBy())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -946,8 +881,6 @@ public final class Product {
       hash = (37 * hash) + PRICE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getPrice()));
-      hash = (37 * hash) + SOLDBY_FIELD_NUMBER;
-      hash = (53 * hash) + getSoldBy().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1087,8 +1020,6 @@ public final class Product {
 
         price_ = 0D;
 
-        soldBy_ = "";
-
         return this;
       }
 
@@ -1118,7 +1049,6 @@ public final class Product {
         result.name_ = name_;
         result.description_ = description_;
         result.price_ = price_;
-        result.soldBy_ = soldBy_;
         onBuilt();
         return result;
       }
@@ -1177,10 +1107,6 @@ public final class Product {
         }
         if (other.getPrice() != 0D) {
           setPrice(other.getPrice());
-        }
-        if (!other.getSoldBy().isEmpty()) {
-          soldBy_ = other.soldBy_;
-          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1393,82 +1319,6 @@ public final class Product {
         onChanged();
         return this;
       }
-
-      private java.lang.Object soldBy_ = "";
-      /**
-       * <code>string soldBy = 4;</code>
-       * @return The soldBy.
-       */
-      public java.lang.String getSoldBy() {
-        java.lang.Object ref = soldBy_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          soldBy_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string soldBy = 4;</code>
-       * @return The bytes for soldBy.
-       */
-      public com.google.protobuf.ByteString
-          getSoldByBytes() {
-        java.lang.Object ref = soldBy_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          soldBy_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string soldBy = 4;</code>
-       * @param value The soldBy to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSoldBy(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        soldBy_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string soldBy = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSoldBy() {
-        
-        soldBy_ = getDefaultInstance().getSoldBy();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string soldBy = 4;</code>
-       * @param value The bytes for soldBy to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSoldByBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        soldBy_ = value;
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1542,12 +1392,12 @@ public final class Product {
   static {
     java.lang.String[] descriptorData = {
       "\n\rproduct.proto\022\007product\" \n\021ProductApiRe" +
-      "quest\022\013\n\003sku\030\001 \001(\t\"V\n\022ProductApiResponse" +
+      "quest\022\013\n\003sku\030\001 \001(\t\"F\n\022ProductApiResponse" +
       "\022\014\n\004name\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\022\r\n\005p" +
-      "rice\030\003 \001(\001\022\016\n\006soldBy\030\004 \001(\t2Z\n\021ProductApi" +
-      "Service\022E\n\ngetProduct\022\032.product.ProductA" +
-      "piRequest\032\033.product.ProductApiResponseB\032" +
-      "\n\030dev.techdozo.product.apib\006proto3"
+      "rice\030\003 \001(\0012Z\n\021ProductApiService\022E\n\ngetPr" +
+      "oduct\022\032.product.ProductApiRequest\032\033.prod" +
+      "uct.ProductApiResponseB\032\n\030dev.techdozo.p" +
+      "roduct.apib\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1564,7 +1414,7 @@ public final class Product {
     internal_static_product_ProductApiResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_product_ProductApiResponse_descriptor,
-        new java.lang.String[] { "Name", "Description", "Price", "SoldBy", });
+        new java.lang.String[] { "Name", "Description", "Price", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

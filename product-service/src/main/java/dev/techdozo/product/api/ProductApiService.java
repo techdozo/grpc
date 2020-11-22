@@ -4,6 +4,7 @@ import dev.techdozo.product.appliction.ProductInfo;
 import dev.techdozo.product.appliction.repository.ProductRepository;
 import io.grpc.Status;
 import io.grpc.StatusException;
+import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
@@ -22,7 +23,7 @@ public class ProductApiService extends ProductApiServiceGrpc.ProductApiServiceIm
 
   @Override
   public void getProduct(
-      ProductApiRequest request, io.grpc.stub.StreamObserver<ProductApiResponse> responseObserver) {
+      ProductApiRequest request, StreamObserver<ProductApiResponse> responseObserver) {
 
     log.info("Calling Product Repository..");
 
@@ -31,6 +32,7 @@ public class ProductApiService extends ProductApiServiceGrpc.ProductApiServiceIm
 
     if (productInfo.isPresent()) {
       ProductInfo product = productInfo.get();
+
       ProductApiResponse productApiResponse =
           ProductApiResponse.newBuilder()
               .setName(product.getName())

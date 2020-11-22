@@ -16,13 +16,15 @@ public class ProductServer {
 
   public ProductServer(int port) {
     this.port = port;
-    ProductApiService helloService = new ProductApiService();
-    this.server = ServerBuilder.forPort(port).addService(helloService).build();
+    ProductApiService productApiService = new ProductApiService();
+    this.server = ServerBuilder.forPort(port).addService(productApiService).build();
   }
 
   public void start() throws IOException {
     log.info("Starting Server..");
+
     server.start();
+
     log.info("Server Started on port {} ", port);
 
     Runtime.getRuntime()
@@ -39,6 +41,7 @@ public class ProductServer {
 
   private void stop() throws InterruptedException {
     log.info("Stopping Server..");
+
     if (server != null) {
       server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
     }
