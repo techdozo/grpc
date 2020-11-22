@@ -15,7 +15,7 @@ public class ProductRepository {
   }
 
   public Optional<ProductInfo> get(String sku) {
-    return Optional.of(productStorage.get(sku));
+    return Optional.ofNullable(productStorage.get(sku));
   }
 
   private Map<String, ProductInfo> loadProduct() {
