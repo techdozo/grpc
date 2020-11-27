@@ -32,7 +32,8 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDir 'src/main/proto_genarated'
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
         }
     }
 }
@@ -43,31 +44,13 @@ protobuf {
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.31.0"
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.31.0'
         }
     }
-
     generateProtoTasks {
-        ofSourceSet('main').each { task ->
-            task.builtins {
-                java {
-                    outputSubDir = 'proto_genarated'
-                }
-            }
-            task.plugins {
-                grpc {
-                    outputSubDir = 'proto_genarated'
-                }
-            }
+        all()*.plugins {
+            grpc {}
         }
     }
-    generatedFilesBaseDir = "$projectDir/src/"
 }
-
-task cleanProtoGen {
-    doFirst {
-        delete("$projectDir/src/main/proto_genarated")
-    }
-}
-clean.dependsOn cleanProtoGen
 
