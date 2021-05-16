@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+}
+
+group = 'dev.techdozo.grpc'
+sourceCompatibility = '11'
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+
+    group = 'dev.techdozo.grpc'
+    version = '0.0.1'
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+
+    repositories {
+        maven { url 'https://repo.osgeo.org/repository/release/' }
+        mavenCentral()
+        mavenLocal()
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.5")
+        }
+    }
+
+    compileJava {
+        sourceCompatibility = 11
+        targetCompatibility = 11
+    }
+
+}
