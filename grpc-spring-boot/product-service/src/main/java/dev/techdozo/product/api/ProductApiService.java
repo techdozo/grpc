@@ -28,8 +28,8 @@ public class ProductApiService extends ProductServiceGrpc.ProductServiceImplBase
 
     log.info("Calling Product Repository..");
 
-    String sku = request.getProductId();
-    Optional<Product> productInfo = productRepositoryImpl.get(sku);
+    String productId = request.getProductId();
+    Optional<Product> productInfo = productRepositoryImpl.get(productId);
 
     if (productInfo.isPresent()) {
       var product = productInfo.get();
@@ -39,6 +39,7 @@ public class ProductApiService extends ProductServiceGrpc.ProductServiceImplBase
               .setName(product.getName())
               .setDescription(product.getDescription())
               .setPrice(product.getPrice())
+              .setUserId(product.getUserId())
               .build();
       responseObserver.onNext(productApiResponse);
       responseObserver.onCompleted();
