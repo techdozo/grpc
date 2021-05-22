@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -14,31 +15,18 @@ public class ProductRepositoryImpl implements ProductRepository {
   private Map<String, Product> productStorage;
 
   public ProductRepositoryImpl() {
-    productStorage = loadProduct();
+    productStorage = new HashMap<>();
   }
 
-  public Optional<Product> get(String sku) {
-    return Optional.ofNullable(productStorage.get(sku));
+  public Optional<Product> get(String productId) {
+    return Optional.ofNullable(productStorage.get(productId));
   }
 
-  private Map<String, Product> loadProduct() {
-    Map<String, Product> products = new HashMap<>();
-    products.put(
-        "apple-123",
-        Product.builder()
-            .sku("abc")
-            .name("Apple iPhone 12 Pro (128GB)")
-            .description("Apple iPhone 12 Pro (128GB) - Graphite")
-            .price(1617.29)
-            .build());
-    products.put(
-        "apple-124",
-        Product.builder()
-            .sku("abc")
-            .name("Apple iPhone 12 Pro Max (128GB)")
-            .description("Apple iPhone 12 Pro (128GB) - Graphite")
-            .price(1752.59)
-            .build());
-    return products;
+  @Override
+  public String save(Product product) {
+    var uuid = UUID.randomUUID().toString();
+    productStorage.put(uuid,product);
+    return uuid;
   }
+
 }

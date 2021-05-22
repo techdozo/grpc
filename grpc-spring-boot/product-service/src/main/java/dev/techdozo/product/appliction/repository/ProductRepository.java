@@ -6,5 +6,6 @@ import java.util.Optional;
 
 public interface ProductRepository {
 
-    Optional<Product> get(String sku);
+    Optional<Product> get(String productId);
+    String save(Product product);
 }

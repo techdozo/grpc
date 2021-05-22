@@ -1,0 +1,13 @@
+syntax = "proto3";
+package dev.techdozo.product;
+
+import "resources.proto";
+
+option java_package = "dev.techdozo.product.resource";
+option java_multiple_files = true;
+
+
+service ProductService {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+}

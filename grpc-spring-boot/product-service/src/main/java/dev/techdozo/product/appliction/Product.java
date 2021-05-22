@@ -1,12 +1,14 @@
 package dev.techdozo.product.appliction;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-@Builder
+@Setter
+@EqualsAndHashCode
 public class Product {
-  private String sku;
+  private String productId;
   private String name;
   private String description;
   private double price;

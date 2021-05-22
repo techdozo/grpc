@@ -1,2 +1,2 @@
 grpc:
-  port: 6565
+  port: 8001
