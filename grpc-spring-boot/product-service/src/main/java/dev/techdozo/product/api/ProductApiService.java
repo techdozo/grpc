@@ -1,10 +1,13 @@
 package dev.techdozo.product.api;
 
-import dev.techdozo.product.Resources;
+import dev.techdozo.product.Resources.CreateProductRequest;
+import dev.techdozo.product.Resources.CreateProductResponse;
+import dev.techdozo.product.Resources.GetProductRequest;
+import dev.techdozo.product.Resources.GetProductResponse;
 import dev.techdozo.product.api.interceptor.LogInterceptor;
 import dev.techdozo.product.api.mapper.ProductMapper;
 import dev.techdozo.product.appliction.Product;
-import dev.techdozo.product.appliction.repository.impl.ProductRepositoryImpl;
+import dev.techdozo.product.appliction.repository.ProductRepository;
 import dev.techdozo.product.resource.ProductServiceGrpc;
 import io.grpc.Status;
 import io.grpc.StatusException;
@@ -19,23 +22,22 @@ import java.util.Optional;
 @GRpcService(interceptors = {LogInterceptor.class})
 public class ProductApiService extends ProductServiceGrpc.ProductServiceImplBase {
 
-  @Autowired private ProductRepositoryImpl productRepositoryImpl;
+  @Autowired private ProductRepository productRepository;
 
   @Override
   public void getProduct(
-      Resources.GetProductRequest request,
-      StreamObserver<Resources.GetProductResponse> responseObserver) {
+      GetProductRequest request, StreamObserver<GetProductResponse> responseObserver) {
 
     log.info("Calling Product Repository..");
 
     String productId = request.getProductId();
-    Optional<Product> productInfo = productRepositoryImpl.get(productId);
+    Optional<Product> productInfo = productRepository.get(productId);
 
     if (productInfo.isPresent()) {
       var product = productInfo.get();
 
       var productApiResponse =
-          Resources.GetProductResponse.newBuilder()
+          GetProductResponse.newBuilder()
               .setName(product.getName())
               .setDescription(product.getDescription())
               .setPrice(product.getPrice())
@@ -52,19 +54,16 @@ public class ProductApiService extends ProductServiceGrpc.ProductServiceImplBase
 
   @Override
   public void createProduct(
-      dev.techdozo.product.Resources.CreateProductRequest request,
-      io.grpc.stub.StreamObserver<dev.techdozo.product.Resources.CreateProductResponse>
-          responseObserver) {
+      CreateProductRequest request, StreamObserver<CreateProductResponse> responseObserver) {
 
     log.info("Calling Product Repository..");
 
-    Product product = ProductMapper.MAPPER.map(request);
-    String productId = productRepositoryImpl.save(product);
+    var product = ProductMapper.MAPPER.map(request);
+    var productId = productRepository.save(product);
 
-    var productApiResponse =
-        Resources.CreateProductResponse.newBuilder().setProductId(productId).build();
+    var createProductResponse = CreateProductResponse.newBuilder().setProductId(productId).build();
 
-    responseObserver.onNext(productApiResponse);
+    responseObserver.onNext(createProductResponse);
     responseObserver.onCompleted();
 
     log.info("Saved Product, Id {} ..", productId);

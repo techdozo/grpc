@@ -47,8 +47,7 @@ public class ProductServiceImpl implements ProductService {
     log.info("Calling Server..");
 
     var getProductRequest = GetProductRequest.newBuilder().setProductId(productId).build();
-    var productApiServiceBlockingStub =
-        ProductServiceGrpc.newBlockingStub(managedChannel);
+    var productApiServiceBlockingStub = ProductServiceGrpc.newBlockingStub(managedChannel);
 
     var response = productApiServiceBlockingStub.getProduct(getProductRequest);
 
