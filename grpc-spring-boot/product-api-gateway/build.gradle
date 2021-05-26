@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':commons')
     //gRPC dependencies
     implementation 'com.google.protobuf:protobuf-java:3.12.4'
     implementation 'io.grpc:grpc-all:1.31.0'

@@ -1,13 +1,11 @@
 plugins {
-    id 'java'
-    id "io.spring.dependency-management" version "1.0.8.RELEASE"
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
 }
 
 group = 'dev.techdozo.grpc'
-sourceCompatibility = '11'
-repositories {
-    mavenCentral()
-}
+//repositories {
+//    mavenCentral()
+//}
 
 def mapstructVersion = '1.4.2.Final'
 def lombokVersion = '1.18.6'
@@ -16,21 +14,15 @@ subprojects {
 
     group = 'dev.techdozo.grpc'
     version = '0.0.1'
-    apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java-library'
 
 
     repositories {
-        maven { url 'https://repo.osgeo.org/repository/release/' }
         mavenCentral()
-        mavenLocal()
-        maven { url 'https://repo.spring.io/snapshot' }
-        maven { url 'https://repo.spring.io/milestone' }
     }
 
     dependencies {
-
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         implementation "org.mapstruct:mapstruct:${mapstructVersion}"
@@ -44,7 +36,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.5")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.5.0")
         }
     }
 

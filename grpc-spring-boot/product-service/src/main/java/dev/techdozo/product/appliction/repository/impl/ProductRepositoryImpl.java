@@ -1,5 +1,6 @@
 package dev.techdozo.product.appliction.repository.impl;
 
+import dev.techdozo.commons.error.RecordNotFoundException;
 import dev.techdozo.product.appliction.Product;
 import dev.techdozo.product.appliction.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
@@ -18,15 +19,15 @@ public class ProductRepositoryImpl implements ProductRepository {
     productStorage = new HashMap<>();
   }
 
-  public Optional<Product> get(String productId) {
-    return Optional.ofNullable(productStorage.get(productId));
+  public Product get(String productId) {
+    var product = Optional.ofNullable(productStorage.get(productId));
+    return product.orElseThrow(() -> new RecordNotFoundException("Product ID not found"));
   }
 
   @Override
   public String save(Product product) {
     var uuid = UUID.randomUUID().toString();
-    productStorage.put(uuid,product);
+    productStorage.put(uuid, product);
     return uuid;
   }
-
 }

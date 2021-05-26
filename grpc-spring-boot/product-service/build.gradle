@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(':commons')
     //gRPC dependencies
     implementation  'io.github.lognet:grpc-spring-boot-starter:4.4.7'
 

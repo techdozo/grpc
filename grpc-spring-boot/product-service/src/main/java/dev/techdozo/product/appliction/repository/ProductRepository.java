@@ -2,10 +2,15 @@ package dev.techdozo.product.appliction.repository;
 
 import dev.techdozo.product.appliction.Product;
 
-import java.util.Optional;
-
 public interface ProductRepository {
 
-    Optional<Product> get(String productId);
-    String save(Product product);
+  /**
+   * Get product based on the productId. Throws RecordNotFoundException if product id is not found.
+   *
+   * @param productId id of the product.
+   * @return Product
+   */
+  Product get(String productId);
+
+  String save(Product product);
 }
