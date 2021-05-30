@@ -5,5 +5,5 @@ import dev.techdozo.api.product.application.model.Product;
 
 public interface ProductService {
     String createNewProduct(Product product);
-    Product get(String productId);
+    Product getProduct(String productId);
 }

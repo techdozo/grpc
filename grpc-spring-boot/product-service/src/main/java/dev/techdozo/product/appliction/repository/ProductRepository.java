@@ -10,7 +10,7 @@ public interface ProductRepository {
    * @param productId id of the product.
    * @return Product
    */
-  Product get(String productId);
+  Product get(String productId) ;
 
   String save(Product product);
 }

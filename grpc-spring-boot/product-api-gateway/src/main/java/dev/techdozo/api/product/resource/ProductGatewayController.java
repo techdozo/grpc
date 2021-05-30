@@ -27,7 +27,7 @@ public class ProductGatewayController {
   @GetMapping("/products/{productId}")
   public ResponseEntity<Product> getProduct(@PathVariable @NotBlank String productId) {
 
-    var product = productService.get(productId);
+    var product = productService.getProduct(productId);
     return new ResponseEntity<>(product, HttpStatus.CREATED);
   }
 }

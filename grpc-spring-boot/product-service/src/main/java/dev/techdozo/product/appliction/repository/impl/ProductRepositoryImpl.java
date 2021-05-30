@@ -21,7 +21,12 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   public Product get(String productId) {
     var product = Optional.ofNullable(productStorage.get(productId));
-    return product.orElseThrow(() -> new RecordNotFoundException("Product ID not found"));
+
+    return product.orElseThrow(
+        () ->
+            new RecordNotFoundException(
+                "Product ID not found",
+                Map.of("resource_id", productId, "message", "Product ID not found")));
   }
 
   @Override

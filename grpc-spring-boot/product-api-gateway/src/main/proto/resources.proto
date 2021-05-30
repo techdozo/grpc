@@ -22,3 +22,10 @@ message GetProductResponse {
   double price = 3;
   string userId = 4;
 }
+
+message ErrorInfo {
+  // Error message
+  string message = 1;
+  // Additional metadata associated with the Error
+  map<string, string> metadata = 2;
+}
