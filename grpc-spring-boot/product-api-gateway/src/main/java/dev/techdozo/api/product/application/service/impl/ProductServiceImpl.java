@@ -1,12 +1,9 @@
 package dev.techdozo.api.product.application.service.impl;
 
-import com.google.protobuf.Any;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.rpc.ErrorInfo;
+import dev.techdozo.api.product.application.error.ServiceExceptionMapper;
 import dev.techdozo.api.product.application.mapper.ProductMapper;
 import dev.techdozo.api.product.application.model.Product;
 import dev.techdozo.api.product.application.service.ProductService;
-import dev.techdozo.commons.error.ServiceException;
 import dev.techdozo.product.Resources.CreateProductRequest;
 import dev.techdozo.product.Resources.GetProductRequest;
 import dev.techdozo.product.resource.ProductServiceGrpc;
@@ -48,7 +45,6 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public Product getProduct(String productId) {
-
     log.info("Calling Server..");
     Product product;
     try {
@@ -59,25 +55,9 @@ public class ProductServiceImpl implements ProductService {
       product = ProductMapper.MAPPER.map(response);
       log.info("Received Product information from product service, info {}", product);
     } catch (StatusRuntimeException error) {
-
-      var status = io.grpc.protobuf.StatusProto.fromThrowable(error);
-      ErrorInfo errorInfo = null;
-
-      for (Any any : status.getDetailsList()) {
-        if (!any.is(ErrorInfo.class)) {
-          continue;
-        }
-        try {
-          errorInfo = any.unpack(ErrorInfo.class);
-        } catch (InvalidProtocolBufferException cause) {
-          log.error("Error parsing protobuf");
-        }
-      }
-      log.info("Error while calling product service, reason {} ", errorInfo.getReason());
-
-      throw new ServiceException(errorInfo.getReason(), errorInfo.getMetadataMap());
+      log.info("Error while calling product service, reason {} ", error.getMessage());
+      throw ServiceExceptionMapper.map(error);
     }
-
     return product;
   }
 }

@@ -8,40 +8,17 @@ import java.util.Map;
 public class BaseException extends RuntimeException {
 
   private Map<String, String> errorMetaData;
+  private ErrorCode errorCode;
 
-  public BaseException() {
-    super();
-  }
-
-  public BaseException(Map<String, String> errorMetaData) {
-    super();
-    this.errorMetaData = errorMetaData;
-  }
-
-  public BaseException(String message) {
+  public BaseException(ErrorCode errorCode,String message, Map<String, String> errorMetaData) {
     super(message);
-  }
-
-  public BaseException(String message, Map<String, String> errorMetaData) {
-    super(message);
+    this.errorCode = errorCode;
     this.errorMetaData = errorMetaData;
   }
 
-  public BaseException(String message, Throwable cause) {
+  public BaseException(ErrorCode errorCode,String message, Map<String, String> errorMetaData, Throwable cause) {
     super(message, cause);
-  }
-
-  public BaseException(String message, Map<String, String> errorMetaData, Throwable cause) {
-    super(message, cause);
-    this.errorMetaData = errorMetaData;
-  }
-
-  public BaseException(Throwable cause) {
-    super(cause);
-  }
-
-  public BaseException(Map<String, String> errorMetaData, Throwable cause) {
-    super(cause);
+    this.errorCode = errorCode;
     this.errorMetaData = errorMetaData;
   }
 }

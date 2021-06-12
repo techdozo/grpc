@@ -24,9 +24,11 @@ message GetProductResponse {
   string userId = 4;
 }
 
-message ErrorInfo {
-  // Error message
-  string message = 1;
+message ErrorDetail {
+  // Error code
+  string errorCode = 1;
+  //Error message
+  string message = 2;
   // Additional metadata associated with the Error
-  map<string, string> metadata = 2;
+  map<string, string> metadata = 3;
 }

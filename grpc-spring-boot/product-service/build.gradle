@@ -13,13 +13,14 @@ repositories {
 }
 
 dependencies {
-//    implementation project(':commons')
-    compile(project(":commons")) {
-        transitive = false
-    }
+//    compile(project(":commons")) {
+//        transitive = false
+//    }
+
+    implementation project(':commons')
 
     //gRPC dependencies
-    implementation  'net.devh:grpc-server-spring-boot-starter:2.12.0.RELEASE'
+    implementation 'net.devh:grpc-server-spring-boot-starter:2.12.0.RELEASE'
 
     //Logging
     implementation 'org.apache.logging.log4j:log4j-api:2.13.3'

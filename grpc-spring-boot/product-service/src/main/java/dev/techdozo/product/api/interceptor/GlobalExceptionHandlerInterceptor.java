@@ -3,7 +3,7 @@ package dev.techdozo.product.api.interceptor;
 import com.google.protobuf.Any;
 import com.google.rpc.Code;
 import com.google.rpc.ErrorInfo;
-import dev.techdozo.commons.error.RecordNotFoundException;
+import dev.techdozo.commons.error.ResourceNotFoundException;
 import io.grpc.*;
 import io.grpc.protobuf.StatusProto;
 
@@ -47,8 +47,8 @@ public class GlobalExceptionHandlerInterceptor implements ServerInterceptor {
     private void handleException(
         RuntimeException exception, ServerCall<T, R> serverCall, Metadata headers) {
       // Catch specific Exception and Process
-      if (exception instanceof RecordNotFoundException) {
-        var errorMetaData = ((RecordNotFoundException) exception).getErrorMetaData();
+      if (exception instanceof ResourceNotFoundException) {
+        var errorMetaData = ((ResourceNotFoundException) exception).getErrorMetaData();
         // Build google.rpc.ErrorInfo
         var errorInfo =
             ErrorInfo.newBuilder()
@@ -57,7 +57,7 @@ public class GlobalExceptionHandlerInterceptor implements ServerInterceptor {
                 .putAllMetadata(errorMetaData)
                 .build();
 
-        com.google.rpc.Status rpcStatus =
+        var rpcStatus =
             com.google.rpc.Status.newBuilder()
                 .setCode(Code.NOT_FOUND.getNumber())
                 .setMessage("Product id not found")
