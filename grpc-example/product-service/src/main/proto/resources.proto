@@ -1,0 +1,14 @@
+syntax = "proto3";
+package dev.techdozo.product.api;
+
+
+message GetProductRequest {
+  string productId = 1;
+
+}
+
+message GetProductResponse {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+}

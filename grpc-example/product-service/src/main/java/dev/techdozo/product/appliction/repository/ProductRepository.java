@@ -8,14 +8,14 @@ import java.util.Optional;
 
 public class ProductRepository {
 
-    private Map<String, ProductInfo> productStorage;
+    private final Map<String, ProductInfo> productStorage;
 
     public ProductRepository() {
         productStorage = loadProduct();
     }
 
-    public Optional<ProductInfo> get(String sku) {
-        return Optional.ofNullable(productStorage.get(sku));
+    public Optional<ProductInfo> get(String productId) {
+        return Optional.ofNullable(productStorage.get(productId));
     }
 
     private Map<String, ProductInfo> loadProduct() {

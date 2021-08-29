@@ -25,7 +25,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     return product.orElseThrow(
         () ->
-            new ResourceNotFoundException(ErrorCode.RESOURCE_NOT_FOUND,
+            new ResourceNotFoundException(
                 "Product ID not found",
                 Map.of("resource_id", productId, "message", "Product ID not found")));
   }

@@ -1,6 +1,6 @@
 package dev.techdozo.product;
 
-import dev.techdozo.product.api.ProductApiService;
+import dev.techdozo.product.api.ProductService;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -11,13 +11,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ProductServer {
 
-    private int port;
+    private final int port;
     private final Server server;
 
     public ProductServer(int port) {
         this.port = port;
-        ProductApiService productApiService = new ProductApiService();
-        this.server = ServerBuilder.forPort(port).addService(productApiService).build();
+        var productService = new ProductService();
+        this.server = ServerBuilder.forPort(port).addService(productService).build();
     }
 
     public void start() throws IOException {
@@ -54,7 +54,7 @@ public class ProductServer {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        ProductServer productServer = new ProductServer(8080);
+        var productServer = new ProductServer(8081);
         productServer.start();
         productServer.blockUntilShutDown();
     }
