@@ -1,0 +1,23 @@
+syntax = "proto3";
+package dev.techdozo.product.api;
+
+service ProductService {
+
+  // A simple RPC.
+  // returns Product for a given id
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+}
+
+message GetProductRequest {
+  string product_id = 1;
+}
+
+message GetProductResponse {
+  Product product = 1;
+}
+
+message Product {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+}
