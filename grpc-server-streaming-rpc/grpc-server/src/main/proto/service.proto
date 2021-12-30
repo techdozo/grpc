@@ -1,0 +1,28 @@
+syntax = "proto3";
+package dev.techdozo.product.api;
+import "google/rpc/status.proto";
+
+service ProductService {
+
+  // A server side streaming RPC
+  // streams product information for a given productId
+  rpc ListProduct(ListProductRequest) returns (stream GetProductResponse);
+}
+
+message GetProductResponse {
+  oneof product_response {
+    Product product = 1;
+    google.rpc.Status error = 2;
+  }
+}
+
+message ListProductRequest {
+  repeated string productId = 1;
+}
+
+message Product {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+}
+
