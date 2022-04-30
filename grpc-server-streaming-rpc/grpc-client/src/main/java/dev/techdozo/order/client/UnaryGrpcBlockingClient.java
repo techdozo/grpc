@@ -27,7 +27,7 @@ public class UnaryGrpcBlockingClient {
 
     var productRequest =
         ListProductRequest.newBuilder()
-            .addAllProductId(List.of("apple-123", "apple-128", "apple-125"))
+            .addAllProductId(List.of("apple-123", "apple-124", "apple-125"))
             .build();
 
     var productResponse = productServiceBlockingStub.listProduct(productRequest);

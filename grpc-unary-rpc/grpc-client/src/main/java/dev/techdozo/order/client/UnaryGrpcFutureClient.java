@@ -3,6 +3,8 @@ package dev.techdozo.order.client;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import dev.techdozo.order.client.interceptor.GrpcClientRequestInterceptor;
+import dev.techdozo.order.context.UserContext;
 import dev.techdozo.product.api.ProductServiceGrpc;
 import dev.techdozo.product.api.Service.GetProductRequest;
 import dev.techdozo.product.api.Service.GetProductResponse;
@@ -11,6 +13,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +35,11 @@ public class UnaryGrpcFutureClient {
   public void callServer() {
 
     log.info("Calling Server..");
-    var managedChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+    var managedChannel =
+        ManagedChannelBuilder.forAddress(host, port)
+            .intercept(new GrpcClientRequestInterceptor())
+            .usePlaintext()
+            .build();
     // Create a new future stub
     var productServiceFutureStub = ProductServiceGrpc.newFutureStub(managedChannel);
 
@@ -69,6 +76,9 @@ public class UnaryGrpcFutureClient {
   }
 
   public static void main(String[] args) {
+    // Pseudo code to generate JWT token
+    var token = "Bearer " + new Random().nextInt();
+    UserContext.setUserContext(token);
     var client = new UnaryGrpcFutureClient("0.0.0.0", 3000);
     client.callServer();
   }
